@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 const router=express.Router();
 router.post('/logout', async (req, res) => {
+            console.log("logout call");
+            
             res.clearCookie('token', {
               httpOnly: true,
               secure: process.env.NODE_ENV === 'production',

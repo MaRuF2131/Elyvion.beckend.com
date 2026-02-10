@@ -3,7 +3,9 @@ import prisma from "../lib/prisma.js";
 
 export async function getAdmin(req, res, next) {
   try {
-    const id = parseInt(req.params.id, 10);
+    const id = parseInt(req.query.id);
+    console.log("req",req.query);
+    
     if (isNaN(id)) {
       return res.status(400).json({ success: false, error: "Invalid Admin ID" });
     }
@@ -35,7 +37,7 @@ export async function loginAdmin(req, res, next) {
 
     let admin = await prisma.admin.findFirst({
       where: {
-        adminName: adminName,
+        name: adminName,
         password: password,
       },
     });

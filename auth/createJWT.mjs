@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 const createJWT=async(res,user) => {
+
+  console.log("Creating JWT for user:", user);
   // Create JWT token
   const payload = { username:user?.name, uid:user?.id, email:user?.email || 'admin@gmail.com', role:user?.role};
   /* console.log("Payload for JWT:", payload); */

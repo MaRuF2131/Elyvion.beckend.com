@@ -15,9 +15,9 @@ async function createAdmin() {
     console.log(`Password: ${password}`);
 
     // Check if user already exists
-    const existingUser = await prisma.user.findFirst({
+    const existingUser = await prisma.admin.findFirst({
       where: {
-        userName: userName,
+        name: userName,
       },
     });
 
@@ -27,46 +27,17 @@ async function createAdmin() {
       process.exit(1);
     }
 
-    let newUserID;
-    if (userID) {
-      const existingUserID = await prisma.user.findUnique({
-        where: { userID },
-      });
-      if (existingUserID) {
-        console.log(`❌ UserID ${userID} is already taken!`);
-        process.exit(1);
-      }
-      newUserID = userID;
-    } else {
-      const highestUser = await prisma.user.findFirst({
-        orderBy: { userID: 'desc' },
-        select: { userID: true },
-      });
-      newUserID = highestUser ? highestUser.userID + 1 : 1;
-    }
 
     // Create admin user
-    const adminUser = await prisma.user.create({
+    const adminUser = await prisma.admin.create({
       data: {
-        userName: userName,
-        userID: newUserID,
+        name: userName,
         password: password,
-        isAdmin: true,
-        isSupervisor: true,
-        isDisabled: false,
-        createdBy: 'SYSTEM',
-        createdDate: new Date(),
+        createdAt: new Date(),
       },
     });
 
     console.log('✅ Admin user created successfully!');
-    console.log(`   ID: ${adminUser.id}`);
-    console.log(`   UserID: ${adminUser.userID}`);
-    console.log(`   Username: ${adminUser.userName}`);
-    console.log(`   Password: ${password}`);
-    console.log(`   Is Admin: ${adminUser.isAdmin}`);
-    console.log(`   Is Supervisor: ${adminUser.isSupervisor}`);
-    console.log('');
     console.log('📝 Login credentials:');
     console.log(`   Username: ${userName}`);
     console.log(`   Password: ${password}`);

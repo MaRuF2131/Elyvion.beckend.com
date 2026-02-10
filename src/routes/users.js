@@ -9,6 +9,6 @@ router.use(async (req, res, next) => {
 router.post("/register",createUser)
 router.post("/login", loginUser);
 router.get("/", getUsers);
-router.get("/:id", getUserById);
+router.get("/unique/:id", getUserById);
 
 export default router;

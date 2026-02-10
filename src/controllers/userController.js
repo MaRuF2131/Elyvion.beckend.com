@@ -62,12 +62,14 @@ export async function getUsers(req, res, next) {
 
 export async function getUserById(req, res, next) {
   try {
-    const id = parseInt(req.params.id, 10);
-    if (isNaN(id)) {
-      return res.status(400).json({ success: false, error: "Invalid user ID" });
+    const  name =req.params.id;
+    console.log("param",req.params);
+    
+    if (!name) {
+      return res.status(400).json({ success: false, error: "Invalid user name" });
     }
     const user = await prisma.customer.findUnique({
-      where: { id },
+      where: { userName: name },
     });
     if (!user) {
       return res.status(404).json({ success: false, error: "User not found" });

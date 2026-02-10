@@ -135,7 +135,7 @@ model Customer {
   id Int @id @default(autoincrement())
 
   // ---------- BASIC / AUTH ----------
-  userName           String?   @map("user_name")
+  userName           String?   @unique @map("user_name")
   userID             Int?      @unique @map("user_id")
   password           String?   @map("password")
   loginPassword      String?   @map("login_password")

@@ -11,10 +11,10 @@ app.use(async (req, res, next) => {
 });
 // Enable CORS
 app.use(cors({
-  origin: ["http://localhost:3000", "http://localhost:5173"], // Frontend URLs
-  methods: ["GET", "POST", "PUT","PATCH", "DELETE", "OPTIONS"],
+  origin: true, // allow all origins dynamically
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
-}));  
+})); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
